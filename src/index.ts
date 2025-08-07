@@ -1,3 +1,2 @@
-const a = 1;
-
-export { a };
+import './index.css';
+export { default as Player } from './Player';
