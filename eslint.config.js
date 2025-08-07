@@ -10,6 +10,7 @@ import eslintConfigPrettier from 'eslint-config-prettier/flat';
 export default [
   { ignores: ['dist/**', 'node_modules/**', '.git/**'] },
   js.configs.recommended,
+  reactHooks.configs['recommended-latest'],
   {
     files: ['src/**/*.{js,jsx,ts,tsx}'],
     languageOptions: {
@@ -27,11 +28,11 @@ export default [
     plugins: {
       '@typescript-eslint': tseslint,
       react: react,
-      'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
     },
     rules: {
-      'no-unused-vars': 'warn',
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': 'warn',
     },
     settings: {
       react: {
