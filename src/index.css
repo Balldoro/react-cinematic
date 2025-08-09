@@ -39,6 +39,16 @@ video {
   margin-right: 16px;
 }
 
+.fulscreen-btn {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+  margin-left: 16px;
+}
+
 .controls {
   position: absolute;
   bottom: 0;
@@ -49,8 +59,9 @@ video {
   justify-content: flex-start;
   align-items: center;
   z-index: 2;
-  background-color: rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(14px);
+  background-color: rgba(43, 43, 43, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(32px);
   border-radius: 24px;
   margin: 16px;
 }
@@ -92,7 +103,7 @@ video {
   top: 0;
   left: 0;
   height: 100%;
-  background-color: oklch(0.75 0.183 55.934);
+  background-color: #fff;
   border-radius: 6px;
 }
 
@@ -101,7 +112,7 @@ video {
   top: 0;
   right: 0;
   height: 100%;
-  background-color: #bebebe;
+  background-color: #acacac;
   border-radius: 6px;
 }
 
@@ -117,7 +128,177 @@ video {
   transform: translate(-50%, -50%);
   width: 4px;
   height: 22px;
-  background-color: oklch(0.75 0.183 55.934);
+  background-color: #fff;
   border-radius: 4px;
   cursor: pointer;
+}
+
+.info-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30%;
+  min-width: 100px;
+  min-height: 100px;
+  max-width: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(43, 43, 43, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(32px);
+  color: white;
+  border-radius: 16px;
+  padding: 16px;
+  gap: 8px;
+}
+
+.info-box svg {
+  width: 84px;
+  height: 84px;
+}
+
+.info-box-icon .volume-bar-circle {
+  transform: var(--position);
+  fill: #636363;
+  /* backdrop-filter: blur(4px); */
+  stroke-width: 2;
+  transition: fill calc(0.05s * var(--position)) ease;
+}
+
+.info-box-icon[data-filled-circles='1'] .volume-bar-circle:nth-child(2) {
+  fill: white;
+}
+.info-box-icon[data-filled-circles='2'] .volume-bar-circle:nth-child(-n + 3) {
+  fill: white;
+}
+.info-box-icon[data-filled-circles='3'] .volume-bar-circle:nth-child(-n + 4) {
+  fill: white;
+}
+.info-box-icon[data-filled-circles='4'] .volume-bar-circle:nth-child(-n + 5) {
+  fill: white;
+}
+.info-box-icon[data-filled-circles='5'] .volume-bar-circle:nth-child(-n + 6) {
+  fill: white;
+}
+.info-box-icon[data-filled-circles='6'] .volume-bar-circle:nth-child(-n + 7) {
+  fill: white;
+}
+.info-box-icon[data-filled-circles='7'] .volume-bar-circle:nth-child(-n + 8) {
+  fill: white;
+}
+.info-box-icon[data-filled-circles='8'] .volume-bar-circle:nth-child(-n + 9) {
+  fill: white;
+}
+.info-box-icon[data-filled-circles='9'] .volume-bar-circle:nth-child(-n + 10) {
+  fill: white;
+}
+.info-box-icon[data-filled-circles='10'] .volume-bar-circle {
+  fill: white;
+}
+
+.info-box-icon #volume-bar-path {
+  transform: rotate(var(--rotation));
+  transform-origin: 117px 110.3px;
+  transition: transform 0.25s ease-out;
+}
+
+.volume-percentage {
+  font-size: 16px;
+  color: white;
+}
+
+.volume-percentage-value {
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+  min-width: 38px;
+}
+
+.volume-slider-container::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -24px;
+  height: 24px;
+  width: 100%;
+}
+
+.volume-container {
+  position: relative;
+}
+
+.volume-bar-fill {
+  width: 5px;
+  height: 100%;
+  background-color: #fff;
+  border-radius: 4px;
+}
+
+.volume-slider {
+  position: relative;
+  width: 5px;
+  height: 100%;
+  background-color: #bebebe;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.volume-slider-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: oklch(0.75 0.183 55.934);
+  border-radius: 4px;
+  width: 5px;
+}
+
+.volume-slider-thumb {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 3px;
+  width: 14px;
+  background-color: oklch(0.75 0.183 55.934);
+  border-radius: 4px;
+}
+
+.volume-slider-container {
+  position: absolute;
+  bottom: 100%;
+  margin-bottom: 24px;
+  left: 0;
+  height: 100px;
+
+  cursor: pointer;
+  animation: volume-slider-animation 0.25s ease-out;
+}
+
+.volume-slider-bg {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 12px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(43, 43, 43, 0.4); /* More transparent to show blur effect */
+  backdrop-filter: blur(32px);
+  isolation: isolate;
+  z-index: 10;
+}
+
+@keyframes volume-slider-animation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

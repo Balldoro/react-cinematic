@@ -6,4 +6,8 @@ export const KEYBOARD_COMMAND = {
   JUMP_TO_START: 'Home',
   JUMP_TO_END: 'End',
   PLAY_PAUSE: ' ',
+  FULLSCREEN: 'f',
+  MUTE: 'm',
+  VOLUME_UP: 'ArrowUp',
+  VOLUME_DOWN: 'ArrowDown',
 };
