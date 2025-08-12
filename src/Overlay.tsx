@@ -1,7 +1,6 @@
-interface OverlayProps {
-  onClick: () => void;
-}
+import { useOverlay } from './useOverlay';
 
-export default function Overlay({ onClick }: OverlayProps) {
-  return <div className="overlay" onClick={onClick} />;
+export default function Overlay() {
+  const { togglePlayWithFocus } = useOverlay();
+  return <div className="overlay" onClick={togglePlayWithFocus} />;
 }

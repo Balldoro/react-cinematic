@@ -1,14 +1,11 @@
 import Slider from './Slider';
 import { VideoDuration } from './types';
+import { usePlayerContext } from './usePlayerContext';
 import { getFullTimerLabel, getVideoDurationUnits, padStartNumber } from './utils';
 
-interface DurationProps {
-  duration: number;
-  currentTime: number;
-  updateCurrentTime: (time: number) => void;
-}
+export default function Duration() {
+  const { currentTime, duration, changeCurrentTime, togglePlay } = usePlayerContext();
 
-export default function Duration({ duration, currentTime, updateCurrentTime }: DurationProps) {
   const currentTimeDuration = getVideoDurationUnits(currentTime);
   const timeRemaining = getVideoDurationUnits(duration - currentTime);
 
@@ -22,7 +19,12 @@ export default function Duration({ duration, currentTime, updateCurrentTime }: D
       >
         {getVideoDurationLabel(currentTimeDuration)}
       </time>
-      <Slider duration={duration} currentTime={currentTime} updateCurrentTime={updateCurrentTime} />
+      <Slider
+        duration={duration}
+        currentTime={currentTime}
+        updateCurrentTime={changeCurrentTime}
+        togglePlay={togglePlay}
+      />
       <time
         role="timer"
         dateTime={getAriaTimerValue(timeRemaining)}

@@ -27,7 +27,7 @@ export function VolumeSlider({
       const parentBox = sliderRef.current.getBoundingClientRect();
       const valueY = ev.clientY - parentBox.top;
       const percent = Math.min(Math.max(valueY / parentBox.height, 0), 1);
-      const newVolume = 1 - percent;
+      const newVolume = 1 - percent - volume;
 
       updateVolume(newVolume);
       setIsAdjustingVolume(true);
