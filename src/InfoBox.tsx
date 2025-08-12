@@ -1,30 +1,26 @@
 import { CSSProperties, useEffect, useState } from 'react';
 import { VolumeUpIcon } from './icons';
+import { usePlayerContext } from './usePlayerContext';
 
-interface InfoBoxProps {
-  type: 'volume' | null;
-  from: number;
-  to: number;
-  isMuted: boolean;
-  updateVolume: (volume: number) => void;
-}
-
-export function InfoBox({ type, from, to, updateVolume, isMuted }: InfoBoxProps) {
-  const [value, setValue] = useState(from);
+export function InfoBox() {
+  const { infoBox } = usePlayerContext();
+  const [value, setValue] = useState(infoBox?.from);
   const [delayedIsMuted, setDelayedIsMuted] = useState<boolean | null>(null);
-  console.log(delayedIsMuted);
+
   useEffect(() => {
     const timeout = setTimeout(() => {
-      setValue(to);
-      updateVolume(to);
-      setDelayedIsMuted(isMuted);
+      setValue(infoBox?.to);
+      // updateVolume(to);
+      // setDelayedIsMuted(isMuted);
     }, 0);
     return () => clearTimeout(timeout);
-  }, [to, updateVolume, isMuted]);
+  }, [infoBox?.to]);
+
+  if (!infoBox || value == undefined) return null;
 
   const getContent = () => {
     const filledCircles = Math.round(delayedIsMuted ? 0 : value * 10);
-    switch (type) {
+    switch (infoBox?.type) {
       case 'volume':
         return (
           <>
@@ -41,8 +37,7 @@ export function InfoBox({ type, from, to, updateVolume, isMuted }: InfoBoxProps)
               <VolumeUpIcon />
             </div>
             <span className="volume-percentage">
-              Volume:
-              <span className="volume-percentage-value">{delayedIsMuted ? 0 : (value * 100).toFixed(0)}%</span>
+              Volume: <span className="volume-percentage-value">{delayedIsMuted ? 0 : (value * 100).toFixed(0)}%</span>
             </span>
           </>
         );

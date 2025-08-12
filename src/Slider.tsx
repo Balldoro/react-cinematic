@@ -1,13 +1,15 @@
-import { PointerEvent, useRef } from 'react';
+import { KeyboardEvent, PointerEvent, useRef } from 'react';
 import { getFullTimerLabel, getVideoDurationUnits } from './utils';
+import { KEYBOARD_COMMAND } from './constants';
 
 interface SliderProps {
   duration: number;
   currentTime: number;
   updateCurrentTime: (time: number) => void;
+  togglePlay: () => void;
 }
 
-export default function Slider({ duration, currentTime, updateCurrentTime }: SliderProps) {
+export default function Slider({ duration, currentTime, updateCurrentTime, togglePlay }: SliderProps) {
   const sliderRef = useRef<HTMLDivElement>(null);
 
   const handlePointerDown = (ev: PointerEvent<HTMLDivElement>) => {
@@ -33,10 +35,17 @@ export default function Slider({ duration, currentTime, updateCurrentTime }: Sli
     window.addEventListener('pointerup', handleUp, { signal });
   };
 
+  const handleKeyDown = (ev: KeyboardEvent<HTMLDivElement>) => {
+    if (ev.key === KEYBOARD_COMMAND.PLAY_PAUSE) {
+      togglePlay();
+    }
+  };
+
   return (
     <div
       ref={sliderRef}
       onPointerDown={handlePointerDown}
+      onKeyDown={handleKeyDown}
       tabIndex={0}
       role="slider"
       aria-valuemin={0}

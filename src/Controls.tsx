@@ -1,36 +1,30 @@
 import { ReactNode, useState } from 'react';
 import { PauseIcon, PlayIcon, VolumeIcon, NoVolumeIcon, FullscreenIcon } from './icons';
 import { VolumeSlider } from './VolumeSlider';
+import { usePlayerContext } from './usePlayerContext';
 
 interface ControlsProps {
-  isPlaying: boolean;
-  isFullscreen: boolean;
-  volume: number;
-  isMuted: boolean;
   children: ReactNode;
-  togglePlayer: () => void;
-  toggleFullscreen: () => void;
-  toggleMute: () => void;
-  updateVolume: (volume: number) => void;
 }
 
-export default function Controls({
-  isPlaying,
-  isFullscreen,
-  volume,
-  isMuted,
-  togglePlayer,
-  toggleFullscreen,
-  children,
-  toggleMute,
-  updateVolume,
-}: ControlsProps) {
+export default function Controls({ children }: ControlsProps) {
+  const {
+    isPlaying,
+    isFullscreen,
+    volume,
+    isMuted,
+    controlsVisible,
+    updateVolume,
+    togglePlay,
+    toggleMute,
+    toggleFullscreen,
+  } = usePlayerContext();
   const [isVolumeHover, setIsVolumeHover] = useState(false);
   const [isAdjustingVolume, setIsAdjustingVolume] = useState(false);
-  console.log(isAdjustingVolume, isVolumeHover);
+
   return (
-    <div className="controls">
-      <button onClick={togglePlayer} aria-label={isPlaying ? 'Pause' : 'Play'} className="play-btn">
+    <div className="controls" style={{ opacity: controlsVisible ? 1 : 0 }} aria-hidden={!controlsVisible}>
+      <button onClick={togglePlay} aria-label={isPlaying ? 'Pause' : 'Play'} className="play-btn">
         {isPlaying ? <PauseIcon /> : <PlayIcon />}
       </button>
       <div
@@ -44,7 +38,7 @@ export default function Controls({
         }}
       >
         <button onClick={toggleMute}>{isMuted ? <NoVolumeIcon /> : <VolumeIcon />}</button>
-        {true && (
+        {isVolumeHover && (
           <VolumeSlider
             volume={volume}
             isMuted={isMuted}

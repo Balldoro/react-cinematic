@@ -1,4 +1,6 @@
 export const SKIP_VALUE = 5;
+export const VOLUME_STEP = 0.1;
+export const CONTROLS_HIDE_DELAY = 1500;
 
 export const KEYBOARD_COMMAND = {
   SKIP_FORWARD: 'ArrowRight',
